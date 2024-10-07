@@ -1,0 +1,101 @@
+package jogodavelha;
+
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class JogoDaVelha {
+	
+	@SuppressWarnings("resource")
+	public static void main(String[] args) {
+		List<String> tabuleiro = Arrays.asList("1","2","3","4","5","6","7","8","9");
+		printTabuleiro(tabuleiro);
+		
+		boolean nenhumGanahador = true;
+		Scanner scanner = new Scanner(System.in);
+		
+		boolean vezJogadorX = true;
+		boolean vezJogadorO = false;
+		
+		while(nenhumGanahador) {
+			String mrcadorTabuleiro = "";
+			
+			if(vezJogadorX) {
+				System.out.println("Jogador escolha qual posicao deseja jogar X: ");
+				
+				
+				vezJogadorX = false;
+				vezJogadorO = true;
+				
+				mrcadorTabuleiro = "X";
+				
+			}else if(vezJogadorO) {
+				System.out.println("Jogador escolha qual posicao deseja jogar O: ");
+				
+				vezJogadorO = false;
+				vezJogadorX = true;
+				
+				mrcadorTabuleiro = "O";
+			}
+			
+			
+			String posicao = scanner.nextLine();
+			int index = Integer.valueOf(posicao)-1;
+			tabuleiro.set(index, mrcadorTabuleiro);
+			
+			printTabuleiro(tabuleiro);
+			
+			if(ganhador(tabuleiro, mrcadorTabuleiro)) {
+				nenhumGanahador = false;
+				
+				System.out.println("Parabens, voce ganhou! ganhador: " + mrcadorTabuleiro);
+			}
+			
+		}
+		
+		String valueJogador1 = scanner.nextLine();
+		
+		System.out.println(valueJogador1);
+		
+	}
+	
+	private static boolean ganhador(List<String> tabuleiro, String mrcadorTabuleiro) {
+		boolean ganhadorLinha1 = tabuleiro.get(0).equals(mrcadorTabuleiro) &&
+		tabuleiro.get(1).equals(mrcadorTabuleiro) &&
+		tabuleiro.get(2).equals(mrcadorTabuleiro);
+		
+		boolean ganhadorLinha2 = tabuleiro.get(3).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(4).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(5).equals(mrcadorTabuleiro);
+		
+		boolean ganhadorLinha3 = tabuleiro.get(6).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(7).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(8).equals(mrcadorTabuleiro);
+		
+		boolean ganhadorLinhaCruzada1 = tabuleiro.get(0).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(4).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(8).equals(mrcadorTabuleiro);
+		
+		boolean ganhadorLinhaCruzada2 = tabuleiro.get(6).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(4).equals(mrcadorTabuleiro) &&
+				tabuleiro.get(2).equals(mrcadorTabuleiro);
+		
+		
+		return ganhadorLinha1 || ganhadorLinha2 || ganhadorLinha3 || ganhadorLinhaCruzada1 || ganhadorLinhaCruzada2;
+	}
+	
+	private static void printTabuleiro(List<String> tabuleiro) {
+		System.out.println(MessageFormat.format("{0} | {1} | {2}", tabuleiro.get(0), tabuleiro.get(1), tabuleiro.get(2)));
+		System.out.println("--------");
+		System.out.println(MessageFormat.format("{0} | {1} | {2}", tabuleiro.get(3), tabuleiro.get(4), tabuleiro.get(5)));
+		System.out.println("--------");
+		System.out.println(MessageFormat.format("{0} | {1} | {2}", tabuleiro.get(6), tabuleiro.get(7), tabuleiro.get(8)));
+		
+		MessageFormat.format("_______________","");
+		
+		MessageFormat.format("_______________","");
+	
+	}
+
+}
